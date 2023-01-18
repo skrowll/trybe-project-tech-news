@@ -11,7 +11,7 @@ def fetch(url: str) -> str:
         response = requests.get(url, timeout=timeout, headers=headers)
         response.raise_for_status()
         time.sleep(rate_limit)
-    except (requests.HTTPError, requests.Timeout):
+    except (requests.HTTPError, requests.ReadTimeout):
         return None
     else:
         return response.text
