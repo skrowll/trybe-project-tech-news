@@ -6,9 +6,11 @@ import time
 def fetch(url: str) -> str:
     try:
         headers = {"user-agent": "Fake user-agent"}
-        response = requests.get(url, timeout=3, headers=headers)
+        timeout = 3
+        rate_limit = 1
+        response = requests.get(url, timeout=timeout, headers=headers)
         response.raise_for_status()
-        time.sleep(1)
+        time.sleep(rate_limit)
     except (requests.HTTPError, requests.Timeout):
         return None
     else:
