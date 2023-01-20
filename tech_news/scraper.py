@@ -1,8 +1,7 @@
 import requests
 import time
 from parsel import Selector
-# import re
-from bs4 import BeautifulSoup
+import re
 
 
 # Requisito 1
@@ -42,11 +41,12 @@ def scrape_news(html_content: str):
         "writer": selector.css("span.author a::text").get(),
         "comments_count":
             len(selector.css("ol.comment-list li").getall()) or 0,
-        # "summary":
-        #     re.sub(r'<[^<]+?>', '', selector.css(".entry-content p").get()),
-        'summary': BeautifulSoup(
-            selector.css('.entry-content p').get(), 'html.parser'
-        ).get_text().strip(),
+        "summary":
+            re.sub(
+                r'<[^<]+?>',
+                '',
+                selector.css(".entry-content p").get()
+            ).strip(),
         "tags": selector.css("a[rel=tag]::text").getall(),
         "category": selector.css("span.label::text").get(),
     }
