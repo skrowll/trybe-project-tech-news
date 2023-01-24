@@ -22,9 +22,10 @@ def search_by_date(date: str) -> list:
 # Requisito 8
 def search_by_tag(tag: str) -> list:
     query = {"tags": {"$regex": tag, "$options": "i"}}
-    return [(new["title"], new["url"]) for new in search_news(query)]
+    return [(news["title"], news["url"]) for news in search_news(query)]
 
 
 # Requisito 9
-def search_by_category(category):
-    """Seu código deve vir aqui"""
+def search_by_category(category: str) -> list:
+    query = {"category": {"$regex": category, "$options": "i"}}
+    return [(news["title"], news["url"]) for news in search_news(query)]
